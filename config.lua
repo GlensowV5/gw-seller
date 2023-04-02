@@ -1,6 +1,6 @@
 Config = Config or {}
 
-Config.Kategoriler = {
+Config.Categories = {
 	["illegal"] = {
 	    [1] = {
 		   name = "lockpick",

@@ -3,7 +3,7 @@ local PlayerJob = {}
 local SellerPed = {}
 local itemkategorileri
 
-function yuklemebasla()
+function load()
 	local blip
     for k, v in pairs(Config.Locations) do
         if not SellerPed[k] then SellerPed[k] = {} end
@@ -24,7 +24,7 @@ function yuklemebasla()
 					{
 						type = 'client',
 						action = function()
-							 TriggerEvent("lunaseller:sellmenu", v.itemcategory)
+							 TriggerEvent("gw:sellmenu", v.itemcategory)
 						 end,
 						label = v.targetLabel,
 						icon = v.targetIcon,
@@ -39,7 +39,7 @@ function yuklemebasla()
 					{
 						type = 'client',
 						action = function()
-							 TriggerEvent("lunaseller:sellmenu", v.itemcategory, v.menuHeader)
+							 TriggerEvent("gw:sellmenu", v.itemcategory, v.menuHeader)
 						 end,
 						label = v.targetLabel,
 						icon = v.targetIcon,
@@ -70,20 +70,20 @@ AddEventHandler('onResourceStart', function()
 	yuklemebasla()
 end)
 
-RegisterNetEvent("lunaseller:sellmenu", function(kategori, baslik)
+RegisterNetEvent("gw:sellmenu", function(main, head)
 	Wait(100)
     local sellinglist = {}
     sellinglist[#sellinglist + 1] = {
         isMenuHeader = true,
-        header = baslik,
+        header = head,
         icon = ''
     }
-    for k,v in pairs(Config.Kategoriler[kategori]) do
+    for k,v in pairs(Config.Categories[main]) do
         sellinglist[#sellinglist + 1] = {
             header = v.label,
             txt = v.price.."$",
             params = {
-                event = 'lunaseller:selltonpc',
+                event = 'gw:selltonpc',
                 args = {
                     item = v.name,
                     label = v.label,
@@ -96,17 +96,17 @@ RegisterNetEvent("lunaseller:sellmenu", function(kategori, baslik)
     exports['qb-menu']:openMenu(sellinglist) -- open our menu
 end)
 
-RegisterNetEvent('lunaseller:selltonpc', function(data)
-	QBCore.Functions.TriggerCallback('miktar', function(result)
+RegisterNetEvent('gw:selltonpc', function(data)
+	QBCore.Functions.TriggerCallback('amount', function(result)
 		if result then
 			TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items[data.item], "remove", result)
 			if data.markedbills then
-				QBCore.Functions.Notify(data.label.." eşyasından "..result*data.preice.."$ karapara kazandın.", "success")
+				QBCore.Functions.Notify("You sell"..data.label.." item for "..result*data.preice.."$ blackmoney.", "success")
 			else
-				QBCore.Functions.Notify(data.label.." eşyasından "..result*data.preice.."$ kazandın.", "success")
+				QBCore.Functions.Notify("You sell"..data.label.." item for "..result*data.preice.."$.", "success")
 			end
 		elseif not result then
-			QBCore.Functions.Notify("Üstünde bu eşyadan yok!", "error")
+			QBCore.Functions.Notify("You don't have this item!", "error")
 		end
 	end, data)
 end)
