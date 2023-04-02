@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback("amount", function(source, cb, itemdata)
+QBCore.Functions.CreateCallback("gw:amount", function(source, cb, itemdata)
 	local data = itemdata
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)	

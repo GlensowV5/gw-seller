@@ -96,7 +96,7 @@ RegisterNetEvent("gw:sellmenu", function(main, head)
 end)
 
 RegisterNetEvent('gw:selltonpc', function(data)
-	QBCore.Functions.TriggerCallback('amount', function(result)
+	QBCore.Functions.TriggerCallback('gw:amount', function(result)
 		if result then
 			TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items[data.item], "remove", result)
 			if data.markedbills then
