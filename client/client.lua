@@ -65,10 +65,6 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
 	mainload()
 end)
 
-AddEventHandler('onResourceStart', function()
-	mainload()
-end)
-
 RegisterNetEvent("gw:sellmenu", function(main, head)
 	Wait(100)
     local sellinglist = {}
