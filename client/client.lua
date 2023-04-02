@@ -1,7 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local PlayerJob = {}
 local SellerPed = {}
-local itemkategorileri
 
 function load()
 	local blip
