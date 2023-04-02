@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local PlayerJob = {}
 local SellerPed = {}
 
-function load()
+function mainload()
 	local blip
     for k, v in pairs(Config.Locations) do
         if not SellerPed[k] then SellerPed[k] = {} end
@@ -62,11 +62,11 @@ end
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
 	local PlayerData = QBCore.Functions.GetPlayerData()
-	yuklemebasla()
+	mainload()
 end)
 
 AddEventHandler('onResourceStart', function()
-	yuklemebasla()
+	mainload()
 end)
 
 RegisterNetEvent("gw:sellmenu", function(main, head)
